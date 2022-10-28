@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+
+  state = {
+    owner: "",
+    car: "",
+    returnOwnerCar: ""
+    }
+
+    add = () => {
+      const returnOwnerCar = "Propietario: " + this.state.owner + " Carro: " + this.state.car;
+      this.setState({returnOwnerCar})
+    }
+        
+    render() {
+      return(
+        <div className= "App">
+         <label>Proprietario: </label>
+          <input type = "text" value = {this.state.owner} onChange = {(e) => {this.setState({owner: e.target.value})}} />
+        <br/>
+
+        <label>Carro: </label>
+         <input type = "text" value = {this.state.car} onChange = {(e) => {this.setState({car: e.target.value})}} />
+
+         <br/>
+
+          <button onClick={this.add}>Adicionar</button>
+
+        <br/>
+
+          <label>A relação adicionada: {this.state.returnOwnerCar} </label>
+         </div>
+         );
+      }
 }
-
-export default App;
+ 
+   
+  
