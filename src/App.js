@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootswatch/dist/cyborg/bootstrap.css';
 
 export default class App extends React.Component {
 
@@ -6,34 +7,38 @@ export default class App extends React.Component {
     owner: "",
     car: "",
     returnOwnerCar: ""
-    }
+  }
 
-    add = () => {
-      const returnOwnerCar = "Propietario: " + this.state.owner + " Carro: " + this.state.car;
-      this.setState({returnOwnerCar})
-    }
-        
-    render() {
-      return(
-        <div className= "App">
-         <label>Proprietario: </label>
-          <input type = "text" value = {this.state.owner} onChange = {(e) => {this.setState({owner: e.target.value})}} />
-        <br/>
+  add = () => {
+    const returnOwnerCar = "Propietário: " + this.state.owner + " Carro: " + this.state.car;
+    this.setState({ returnOwnerCar })
+  }
 
-        <label>Carro: </label>
-         <input type = "text" value = {this.state.car} onChange = {(e) => {this.setState({car: e.target.value})}} />
+  render() {
+    return (
+      <div className="App">
 
-         <br/>
+        <div class="form-group">
+          <label className="col-form-label col-form-label-sm mt-4" for="inputSmall">Propietário: </label>
+          <input className="form-control form-control-sm" type="text" placeholder="Digite o nome do Propietário" id="inputSmall" value={this.state.owner} onChange={(e) => { this.setState({ owner: e.target.value }) }} />
+        </div>
+        <br />
 
-          <button onClick={this.add}>Adicionar</button>
+        <div class="form-group">
+          <label className="col-form-label col-form-label-sm mt-4" for="inputSmall">Carro: </label>
+          <input className="form-control form-control-sm" type="text" placeholder="Digite a placa do carro" id="inputSmall" value={this.state.car} onChange={(e) => { this.setState({ car: e.target.value }) }} />
+        </div>
 
-        <br/>
+        <br />
 
-          <label>A relação adicionada: {this.state.returnOwnerCar} </label>
-         </div>
-         );
-      }
+        <button type="button" class="btn btn-dark" onClick={this.add}>Adicionar</button>
+
+        <br />
+
+        <h6>A relação adicionada: {this.state.returnOwnerCar} </h6>
+      </div>
+    );
+  }
 }
- 
-   
-  
+
+
