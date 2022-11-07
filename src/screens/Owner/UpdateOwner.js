@@ -1,17 +1,34 @@
 import React from 'react';
 import 'bootswatch/dist/cyborg/bootstrap.css';
 
-export default class App extends React.Component {
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+
+class UpdateOwner extends React.Component {
 
     state = {
-        id: "",
+        id: '',
         name: "",
-        returnOwner: ""
+        email: "",
+        password:"",
     }
 
-    add = () => {
-        const returnOwner = "ID: " + this.state.id + " Propietário: " + this.state.name;
-        this.setState({ returnOwner })
+    update = () => {
+        axios.put('http://localhost:8080/api/owner/${this.state.id}',
+        {
+            name: this.state.name,
+            email: this.state.email,
+            password:this.state.password
+        }
+        ).then( response =>
+            {
+                console.log(response);
+            }
+        ).catch ( error =>
+            {
+                console.log(error.response);
+            }
+        );
     }
 
     render() {
@@ -27,12 +44,14 @@ export default class App extends React.Component {
 
                 <br />
 
-                <button type="button" class="btn btn-dark" onClick={this.add}>Alterar</button>
+                <button type="button" class="btn btn-dark" onClick={this.update}>Alterar</button>
 
                 <br />
 
-                <h6>Propietário Alterado: {this.state.returnOwner} </h6>
             </div>
         );
     }
 }
+
+
+export default withRouter(UpdateOwner);

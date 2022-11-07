@@ -1,17 +1,27 @@
 import React from 'react';
 import 'bootswatch/dist/cyborg/bootstrap.css';
 
-export default class App extends React.Component {
+
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+
+class DeleteOwner extends React.Component {
 
     state = {
-        id: "",
-        name: "",
-        returnOwner: ""
+        id: '',
     }
 
-    add = () => {
-        const returnOwner = "ID: " + this.state.id + " Propietário: " + this.state.name;
-        this.setState({ returnOwner })
+    delete = () => {
+        axios.delete('http://localhost:8080/api/owner/${this.state.id}')
+        .then( response =>
+            {
+                console.log(response);
+            }
+        ).catch ( error =>
+            {
+                console.log(error.response);
+            }
+        )
     }
 
     render() {
@@ -27,12 +37,12 @@ export default class App extends React.Component {
 
                 <br />
 
-                <button type="button" class="btn btn-dark" onClick={this.add}>Deletar</button>
+                <button type="button" class="btn btn-dark" onClick={this.delete}>Deletar</button>
 
                 <br />
-
-                <h6>Propietário Deletado: {this.state.returnOwner} </h6>
             </div>
         );
     }
 }
+
+export default withRouter (DeleteOwner);

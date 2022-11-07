@@ -1,24 +1,43 @@
 import React from 'react'
 import './CreateUser.css';
 
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+
+
 import Card from '../../components/Card';
 import FormGroup from '../../components/FormGroup';
 
-export default class CreateUser extends React.Component {
+class CreateUser extends React.Component {
 
     state = {
+        id: '',
         name: '',
         email: '',
         password: '',
-        passwordRepeat: ''
     }
 
     create = () => {
-        console.log(this.state)
+        axios.post('http://localhost:8080/api/owner',
+        {
+            id: this.state.id,
+            name: this.state.name,
+            email: this.state.email,
+            password:this.state.password
+        }
+        ).then( response =>
+            {
+                console.log(response);
+            }
+        ).catch ( error =>
+            {
+                console.log(error.response);
+            }
+        )
     }
 
     cancel = () => {
-        console.log('cancel')
+        this.props.history.push('/');
     }
 
 
@@ -36,13 +55,15 @@ export default class CreateUser extends React.Component {
                                     name = 'name'
                                     onChange={e => this.setState({ name: e.target.value })} />
                                 </FormGroup>
-                                <FormGroup label="Email: *" htmlFor='inputEmail'>
+                                <br/>
+                                <FormGroup label="Email: *" htmlFor='inputemail'>
                                     <input type="email"
-                                    id = 'inputEmail'
+                                    id = 'inputemail'
                                     className='form-control'
                                     name = 'email'
                                     onChange={e => this.setState({ email: e.target.value })} />
                                 </FormGroup>
+                                <br/>
                                 <FormGroup label="Senha: *" htmlFor='inputpassword'>
                                     <input type="password"
                                     id = 'inputpassword'
@@ -50,13 +71,15 @@ export default class CreateUser extends React.Component {
                                     name = 'password'
                                     onChange={e => this.setState({ password: e.target.value })} />
                                 </FormGroup> 
+                                <br/>
                                 <FormGroup label="Repita a Senha: *" htmlFor='inputPasswordRepeat'>
                                     <input type="password"
                                     id = 'inputPasswordRepeat'
                                     className='form-control'
                                     name = 'password'
                                     onChange={e => this.setState({ passwordRepeat: e.target.value })} />
-                                </FormGroup>    
+                                </FormGroup> 
+                                <br/>   
                                 <button className='btn btn-sucess' onClick={this.create} type = 'button'>Salvar
                                 </button>
                                 <button className='btn btn-danger' onClick={this.cancel} type = 'button'>Cancelar
@@ -69,3 +92,6 @@ export default class CreateUser extends React.Component {
         )
     }
 }
+
+
+export default withRouter(CreateUser);

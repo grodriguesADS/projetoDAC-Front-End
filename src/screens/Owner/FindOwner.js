@@ -1,20 +1,68 @@
 import React from 'react';
 import 'bootswatch/dist/cyborg/bootstrap.css';
 
-export default class App extends React.Component {
+
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+
+
+class FindOwner extends React.Component {
 
     state = {
-        id: "",
-        name: "",
-        returnOwner: ""
+      name: '',
+      email: '',
+      id: '',
+      users: []
+
     }
 
-    add = () => {
-        const returnOwner = "ID: " + this.state.id + " Propietário: " + this.state.name;
-        this.setState({ returnOwner })
+   delete = (userId) => {
+    axios.delete('http://localhost:8080/api/owner/${userId}')
+    .then( response =>
+        {
+            this.find();
+        }
+    ).catch ( error =>
+        {
+            console.log(error.response);
+        }
+    )
+}
+    edit = (userId) => {
+        this.props.history.push('/UpdateOwner')
     }
 
+    find = () => {
+        var params = '?';
+
+        if(this.state.id != '') {
+            if (params != '?') {
+                params = '${params}&';
+            }
+
+            params = '${params}id = ${this.state.id}'
+        }
+
+        if(this.state.name != '') {
+            if (params != '?') {
+                params = '${params}&';
+            }
+
+            params = '${params}name = ${this.state.name}'
+        }
+
+        if(this.state.email != '') {
+            if (params != '?') {
+                params = '${params}&';
+            }
+
+            params = '${params}email = ${this.state.email}'
+        }
+
+        axios.get('http://localhost:8080/api/owner${params}')
+    }
     render() {
+
         return (
             <div className="App">
 
@@ -27,12 +75,12 @@ export default class App extends React.Component {
 
                 <br />
 
-                <button type="button" class="btn btn-dark" onClick={this.add}>Encontrar</button>
+                <button type="button" class="btn btn-dark" onClick={this.find}>Encontrar</button>
 
                 <br />
 
-                <h6>Propietário Encontrado: {this.state.returnOwner} </h6>
             </div>
         );
     }
 }
+export default withRouter (FindOwner);
