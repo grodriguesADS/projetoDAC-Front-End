@@ -13,7 +13,7 @@ function  AppRoutes() {
         <BrowserRouter>
         <Route component = { Login } path = "/login" /> 
         <Route component = { CreateUser } path = "/createUser" /> 
-        <Route component = { UpdateOwner } path = "/updateOwner" /> 
+        <Route component = { UpdateOwner } path = "/updateOwner/:id" /> 
         <Route component = { DeleteOwner } path = "/deleteOwner" /> 
         <Route component = { FindOwner } path = "/findOwner" /> 
         </BrowserRouter>

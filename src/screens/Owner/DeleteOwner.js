@@ -5,14 +5,17 @@ import 'bootswatch/dist/cyborg/bootstrap.css';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import Card from '../../components/Card';
+import FormGroup from '../../components/FormGroup';
+
 class DeleteOwner extends React.Component {
 
     state = {
-        id: '',
+        id: 0,
     }
 
     delete = () => {
-        axios.delete('http://localhost:8080/api/owner/${this.state.id}')
+        axios.delete(`http://localhost:8080/api/owner/${this.state.id}`)
         .then( response =>
             {
                 console.log(response);
@@ -26,21 +29,26 @@ class DeleteOwner extends React.Component {
 
     render() {
         return (
-            <div className="App">
-
-                <h3>Deletar Propietário</h3>
-
-                <div class="form-group">
-                    <label className="col-form-label col-form-label-sm mt-4" for="inputSmall">Propietário: </label>
-                    <input className="form-control form-control-sm" type="text" placeholder="Digite o id do propietário" id="inputSmall" value={this.state.id} onChange={(e) => { this.setState({ id: e.target.value }) }} />
+            <div className='container'>
+            <Card title = 'Deletar Usuário'>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <div className='bs-component'>
+                            <FormGroup label="Id: *" htmlFor='inputId'>
+                                <input type="text"
+                                id = 'inputId'
+                                className='form-control'
+                                name = 'name'
+                                onChange={e => this.setState({ id: e.target.value })} />
+                            </FormGroup>
+                            <br/>  
+                            <button className='btn btn-danger   ' onClick={this.delete} type = 'button'>Deletar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <br />
-
-                <button type="button" class="btn btn-dark" onClick={this.delete}>Deletar</button>
-
-                <br />
-            </div>
+            </Card>
+        </div>
         );
     }
 }

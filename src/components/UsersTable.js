@@ -39,4 +39,4 @@ export default props => {
             </tbody>
         </table>
     )
-}
+};

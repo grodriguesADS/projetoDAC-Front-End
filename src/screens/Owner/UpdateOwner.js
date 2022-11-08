@@ -4,17 +4,21 @@ import 'bootswatch/dist/cyborg/bootstrap.css';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+
+import Card from '../../components/Card';
+import FormGroup from '../../components/FormGroup';
+
 class UpdateOwner extends React.Component {
 
     state = {
-        id: '',
+        id: 0,
         name: "",
         email: "",
         password:"",
     }
 
     update = () => {
-        axios.put('http://localhost:8080/api/owner/${this.state.id}',
+        axios.put(`http://localhost:8080/api/owner/${this.state.id}`,
         {
             name: this.state.name,
             email: this.state.email,
@@ -33,22 +37,58 @@ class UpdateOwner extends React.Component {
 
     render() {
         return (
-            <div className="App">
-
-                <h3>Atualizar Propietário</h3>
-
-                <div class="form-group">
-                    <label className="col-form-label col-form-label-sm mt-4" for="inputSmall">Propietário: </label>
-                    <input className="form-control form-control-sm" type="text" placeholder="Digite o id do propietário" id="inputSmall" value={this.state.id} onChange={(e) => { this.setState({ id: e.target.value }) }} />
+            <div className='container'>
+            <Card title = 'Atualizar Usuário'>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <div className='bs-component'>
+                        <FormGroup label="Id: *" htmlFor='inputId'>
+                                <input type="text"
+                                id = 'inputId'
+                                className='form-control'
+                                name = 'Id'
+                                onChange={e => this.setState({ id: e.target.value })} />
+                            </FormGroup>
+                            <br/>
+                            <FormGroup label="Nome: *" htmlFor='inputname'>
+                                <input type="text"
+                                id = 'inputname'
+                                className='form-control'
+                                name = 'name'
+                                onChange={e => this.setState({ name: e.target.value })} />
+                            </FormGroup>
+                            <br/>
+                            <FormGroup label="Email: *" htmlFor='inputemail'>
+                                <input type="email"
+                                id = 'inputemail'
+                                className='form-control'
+                                name = 'email'
+                                onChange={e => this.setState({ email: e.target.value })} />
+                            </FormGroup>
+                            <br/>
+                            <FormGroup label="Senha: *" htmlFor='inputpassword'>
+                                <input type="password"
+                                id = 'inputpassword'
+                                className='form-control'
+                                name = 'password'
+                                onChange={e => this.setState({ password: e.target.value })} />
+                            </FormGroup> 
+                            <br/>
+                            <FormGroup label="Repita a Senha: *" htmlFor='inputPasswordRepeat'>
+                                <input type="password"
+                                id = 'inputPasswordRepeat'
+                                className='form-control'
+                                name = 'password'
+                                onChange={e => this.setState({ passwordRepeat: e.target.value })} />
+                            </FormGroup> 
+                            <br/>   
+                            <button className='btn btn-sucess' onClick={this.update} type = 'button'>Salvar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <br />
-
-                <button type="button" class="btn btn-dark" onClick={this.update}>Alterar</button>
-
-                <br />
-
-            </div>
+            </Card>
+        </div>
         );
     }
 }

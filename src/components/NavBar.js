@@ -12,7 +12,7 @@ function NavBar(props) {
                     <ul className="navbar-nav">
                       <NavBarItem href="/" label="Home" /> 
                       <NavBarItem href="/createUser" label="Cadastro" /> 
-                      <NavBarItem href="/updateOwner" label="Atualizar" /> 
+                      <NavBarItem href="/updateOwner/:id" label="Atualizar" /> 
                       <NavBarItem href="/deleteOwner" label="Deletar" /> 
                       <NavBarItem href="/findOwner" label="Procurar" /> 
                       <NavBarItem href="/login" label="Login" /> 
