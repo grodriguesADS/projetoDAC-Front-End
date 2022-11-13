@@ -17,6 +17,31 @@ class UpdateOwner extends React.Component {
         password:"",
     }
 
+    componentDidMount(){
+        const params = this.props.match.params;
+        const id = params.id;
+        this.findById(id);
+    }
+
+
+    findById = (userId) => {
+        axios.get(`http://localhost:8080/api/owner?id=${userId}`)
+        .then ( response => {
+            const user = response.data[0];
+            const id = user.id;
+            const username = user.username;
+            const name = user.name;
+            const email = user.email;
+
+            this.setState({id , username, name, email});
+        }
+
+        ) .catch ( error => {
+            console.log(error.response)
+        }
+        );
+    }
+
     update = () => {
         axios.put(`http://localhost:8080/api/owner/${this.state.id}`,
         {
@@ -35,6 +60,8 @@ class UpdateOwner extends React.Component {
         );
     }
 
+
+    
     render() {
         return (
             <div className='container'>
@@ -46,6 +73,7 @@ class UpdateOwner extends React.Component {
                                 <input type="text"
                                 id = 'inputId'
                                 className='form-control'
+                                value={this.state.id}
                                 name = 'Id'
                                 onChange={e => this.setState({ id: e.target.value })} />
                             </FormGroup>
@@ -54,6 +82,7 @@ class UpdateOwner extends React.Component {
                                 <input type="text"
                                 id = 'inputname'
                                 className='form-control'
+                                value={this.state.name}
                                 name = 'name'
                                 onChange={e => this.setState({ name: e.target.value })} />
                             </FormGroup>
@@ -62,6 +91,7 @@ class UpdateOwner extends React.Component {
                                 <input type="email"
                                 id = 'inputemail'
                                 className='form-control'
+                                value={this.state.email}
                                 name = 'email'
                                 onChange={e => this.setState({ email: e.target.value })} />
                             </FormGroup>

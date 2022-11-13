@@ -20,6 +20,10 @@ class FindOwner extends React.Component {
 
     }
 
+    componentDidMount() {
+        this.find();
+    }
+
    delete = (userId) => {
     axios.delete(`http://localhost:8080/api/owner/${userId}`)
     .then( response =>
@@ -33,7 +37,7 @@ class FindOwner extends React.Component {
     )
 }
     edit = (userId) => {
-        this.props.history.push('/UpdateOwner')
+        this.props.history.push(`/updateOwner/${userId}`);
     }
 
     find = () => {

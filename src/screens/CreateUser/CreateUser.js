@@ -44,6 +44,8 @@ class CreateUser extends React.Component {
     render() {
         return(
             <div className='container'>
+                <br/>
+                <br/>
                 <Card title = 'Cadastro de Usuário'>
                     <div className='row'>
                         <div className='col-lg-12'>
@@ -80,7 +82,7 @@ class CreateUser extends React.Component {
                                     onChange={e => this.setState({ passwordRepeat: e.target.value })} />
                                 </FormGroup> 
                                 <br/>   
-                                <button className='btn btn-sucess' onClick={this.create} type = 'button'>Salvar
+                                <button className='btn btn-success' onClick={this.create} type = 'button'>Salvar
                                 </button>
                                 <button className='btn btn-danger' onClick={this.cancel} type = 'button'>Cancelar
                                 </button>
